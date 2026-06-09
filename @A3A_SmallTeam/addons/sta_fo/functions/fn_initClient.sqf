@@ -43,6 +43,7 @@ if (isNil "STA_batteryWaypoints") then { STA_batteryWaypoints = createHashMap };
     {
         if (player getVariable ["incapacitated", false]) exitWith {};
         if (player getVariable ["owner", player] != player) exitWith {};
+        if (isNil "theBoss") exitWith {};
         private _isBoss = player isEqualTo theBoss;
         private _isFO   = (getPlayerUID player) in STA_foPlayers;
         if (!_isBoss && !_isFO) exitWith {};
