@@ -30,4 +30,26 @@
     true
 ] call CBA_fnc_addSetting;
 
-// Remaining client init (keybind, global fallbacks) added in Task 11
+// Global fallbacks for clients that join after server init
+if (isNil "STA_foPlayers")        then { STA_foPlayers        = [] };
+if (isNil "STA_batteryPool")      then { STA_batteryPool      = [] };
+if (isNil "STA_batteryWaypoints") then { STA_batteryWaypoints = createHashMap };
+
+// CBA keybind registration
+[
+    "sta_fo",
+    "STA_FO_Artillery",
+    ["FO Artillery", "Open the artillery fire mission interface (FO or commander)"],
+    {
+        if (player getVariable ["incapacitated", false]) exitWith {};
+        if (player getVariable ["owner", player] != player) exitWith {};
+        private _isBoss = player isEqualTo theBoss;
+        private _isFO   = (getPlayerUID player) in STA_foPlayers;
+        if (!_isBoss && !_isFO) exitWith {};
+        [] spawn A3A_fnc_artySupport;
+    },
+    {},
+    [30, [true, true, false]],  // Ctrl+Shift+A (DIK_A = 30)
+    false,
+    false
+] call CBA_fnc_addKeybind;
