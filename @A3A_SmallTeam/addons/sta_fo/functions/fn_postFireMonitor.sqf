@@ -1,7 +1,7 @@
 // fn_postFireMonitor.sqf
 // Called server-side via remoteExec ["STA_fnc_postFireMonitor", 2]
 // params: [netId string of the battery vehicle]
-#include "script_component.hpp"
+#include "../script_component.hpp"
 
 params ["_netId"];
 [_netId] spawn {

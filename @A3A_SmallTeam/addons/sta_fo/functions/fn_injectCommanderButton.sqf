@@ -6,7 +6,7 @@
 // NOTE: IDD 70000 and button positions are best-guess values and need visual
 // verification against Antistasi's actual commanderMenu dialog layout before
 // finalizing. Adjust x/y/w/h if buttons overlap existing controls.
-#include "script_component.hpp"
+#include "../script_component.hpp"
 
 disableSerialization;
 private _display = findDisplay 70000;

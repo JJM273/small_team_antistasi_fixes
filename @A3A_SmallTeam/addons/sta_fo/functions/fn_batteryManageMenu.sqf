@@ -1,7 +1,7 @@
 // fn_batteryManageMenu.sqf
 // Opens the battery management dialog and wires all buttons.
 // Must run on the commander's client only.
-#include "script_component.hpp"
+#include "../script_component.hpp"
 
 if (!(player isEqualTo theBoss)) exitWith {};
 
@@ -101,9 +101,7 @@ lbClear _listCtrl;
     };
     private _battery = STA_batteryPool select _selIdx;
     [netId _battery] remoteExec ["STA_fnc_removeBattery", 2];
-    sleep 0.6;
-    closeDialog 0;
-    [] call STA_fnc_batteryManageMenu;
+    [] spawn { sleep 0.6; closeDialog 0; [] call STA_fnc_batteryManageMenu; };
 }];
 
 // -- Close -------------------------------------------------------------------

@@ -5,7 +5,7 @@
 //   2. Group sourcing: FOs use STA_batteryPool instead of hcSelected player
 //   3. End: remoteExecs post-fire monitor to server for each battery that fired
 // Everything else is verbatim from the Antistasi original.
-#include "script_component.hpp"
+#include "../script_component.hpp"
 FIX_LINE_NUMBERS()
 
 // ── STA: Role gate ────────────────────────────────────────────────────────────
