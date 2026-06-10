@@ -24,10 +24,10 @@ class CfgFunctions {
         };
     };
 
-    // Override SCRT_fnc_ui_toggleCommanderMenu — file at addon root (\sta_fo\fn_toggleCommanderMenu.sqf)
+    // Override SCRT_fnc_ui_toggleCommanderMenu — file at addon root (\sta_fo\fn_ui_toggleCommanderMenu.sqf)
     class SCRT {
         class ui {
-            class toggleCommanderMenu {};
+            class ui_toggleCommanderMenu {};
         };
     };
 };
