@@ -3,13 +3,12 @@
 // already-open commanderMenu display.
 // Called immediately after createDialog "commanderMenu" in fn_toggleCommanderMenu.sqf.
 //
-// NOTE: IDD 70000 and button positions are best-guess values and need visual
-// verification against Antistasi's actual commanderMenu dialog layout before
-// finalizing. Adjust x/y/w/h if buttons overlap existing controls.
+// NOTE: button positions are best-guess values and may need visual tuning
+// against Antistasi's commanderMenu layout. Adjust x/y/w/h if buttons overlap.
 #include "../script_component.hpp"
 
 disableSerialization;
-private _display = findDisplay 70000;
+private _display = findDisplay 60000;
 if (isNull _display) exitWith {};
 
 // "Manage Artillery" button
