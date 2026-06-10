@@ -2,7 +2,7 @@ class CfgFunctions {
     // Our own functions
     class STA {
         class default {
-            file = "\STA\sta_fo\functions";
+            file = "\STA\sta_fo\functions"; // TODO: replace with QPATHTOFOLDER(functions) once CBA header is resolvable
             class initServer            { postInit = 1; serverInit = 1; };
             class initClient            { postInit = 1; };
             class postFireMonitor       {};
@@ -21,7 +21,7 @@ class CfgFunctions {
     class A3A {
         class AI {
             class artySupport {
-                file = "\STA\sta_fo\functions\fn_artySupport.sqf";
+                file = "\STA\sta_fo\functions\fn_artySupport.sqf"; // TODO: QPATHTOFOLDER(functions\fn_artySupport.sqf)
             };
         };
     };
@@ -30,7 +30,7 @@ class CfgFunctions {
     class SCRT {
         class ui {
             class toggleCommanderMenu {
-                file = "\STA\sta_fo\functions\fn_toggleCommanderMenu.sqf";
+                file = "\STA\sta_fo\functions\fn_toggleCommanderMenu.sqf"; // TODO: QPATHTOFOLDER(functions\fn_toggleCommanderMenu.sqf)
             };
         };
     };
