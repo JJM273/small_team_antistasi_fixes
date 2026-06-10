@@ -2,7 +2,7 @@ class CfgFunctions {
     // Our own functions
     class STA {
         class default {
-            // TODO: restore subfolder organisation (file = "\sta_fo\functions") once build tool packs subdirectories correctly
+            file = "\sta_fo"; // TODO: restore subfolder (file = "\sta_fo\functions") once build tool packs subdirectories correctly
             class initServer            { postInit = 1; serverInit = 1; };
             class initClient            { postInit = 1; };
             class postFireMonitor       {};
