@@ -1,6 +1,6 @@
 // fn_initServer.sqf
 // Runs postInit on server only (serverInit = 1 in CfgFunctions)
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 if (!isServer) exitWith {};
 

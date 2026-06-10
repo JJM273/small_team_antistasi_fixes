@@ -2,7 +2,7 @@
 // Override of SCRT_fnc_ui_toggleCommanderMenu
 // ONLY CHANGE from original: calls STA_fnc_injectCommanderButton after the commander menu opens.
 // All other logic is identical to the Antistasi original.
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 if (isMenuOpen) then {
     closeDialog 0;

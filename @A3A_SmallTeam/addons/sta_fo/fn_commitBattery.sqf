@@ -1,7 +1,7 @@
 // fn_commitBattery.sqf
 // params: [netId string]
 // Adds vehicle to STA_batteryPool if valid and not already present
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 params ["_netId"];
 private _vehicle = objectFromNetId _netId;

@@ -1,7 +1,7 @@
 // fn_batteryManageMenu.sqf
 // Opens the battery management dialog and wires all buttons.
 // Must run on the commander's client only.
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 if (!(player isEqualTo theBoss)) exitWith {};
 

@@ -1,6 +1,6 @@
 // fn_foRoleMenu.sqf
 // Opens the FO role management dialog. Boss-only.
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 if (!(player isEqualTo theBoss)) exitWith {};
 

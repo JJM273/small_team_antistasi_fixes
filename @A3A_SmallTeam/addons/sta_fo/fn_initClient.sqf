@@ -1,6 +1,6 @@
 // fn_initClient.sqf
 // Runs postInit on every client (and server if it hosts)
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 // Register CBA addon settings
 [

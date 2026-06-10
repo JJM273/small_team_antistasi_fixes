@@ -1,7 +1,7 @@
 // fn_removeBattery.sqf
 // params: [netId string]
 // Removes vehicle from pool and clears its waypoint cycle
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 params ["_netId"];
 private _vehicle = objectFromNetId _netId;

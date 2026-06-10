@@ -5,7 +5,7 @@
 //
 // NOTE: button positions are best-guess values and may need visual tuning
 // against Antistasi's commanderMenu layout. Adjust x/y/w/h if buttons overlap.
-#include "../script_component.hpp"
+#include "script_component.hpp"
 
 disableSerialization;
 private _display = findDisplay 60000;
