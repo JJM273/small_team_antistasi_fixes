@@ -17,21 +17,17 @@ class CfgFunctions {
         };
     };
 
-    // Override A3A_fnc_artySupport
+    // Override A3A_fnc_artySupport — file at addon root (\sta_fo\fn_artySupport.sqf)
     class A3A {
         class AI {
-            class artySupport {
-                file = "\sta_fo\functions\fn_artySupport.sqf"; // TODO: QPATHTOFOLDER(functions\fn_artySupport.sqf)
-            };
+            class artySupport {};
         };
     };
 
-    // Override SCRT_fnc_ui_toggleCommanderMenu
+    // Override SCRT_fnc_ui_toggleCommanderMenu — file at addon root (\sta_fo\fn_toggleCommanderMenu.sqf)
     class SCRT {
         class ui {
-            class toggleCommanderMenu {
-                file = "\sta_fo\functions\fn_toggleCommanderMenu.sqf"; // TODO: QPATHTOFOLDER(functions\fn_toggleCommanderMenu.sqf)
-            };
+            class toggleCommanderMenu {};
         };
     };
 };
