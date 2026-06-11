@@ -31,7 +31,7 @@ lbClear _foCtrl;
 // -- Grant FO ----------------------------------------------------------------
 (_display displayCtrl 57202) ctrlAddEventHandler ["ButtonClick", {
     disableSerialization;
-    private _selIdx = ((findDisplay 57002) displayCtrl 57201) lbCurSel;
+    private _selIdx = lbCurSel ((findDisplay 57002) displayCtrl 57201);
     if (_selIdx < 0) exitWith {
         ["FO Roles", "Select a player from the left list first."] call A3A_fnc_customHint;
     };
@@ -46,7 +46,7 @@ lbClear _foCtrl;
 (_display displayCtrl 57203) ctrlAddEventHandler ["ButtonClick", {
     disableSerialization;
     private _foCtrl = (findDisplay 57002) displayCtrl 57206;
-    private _selIdx = _foCtrl lbCurSel;
+    private _selIdx = lbCurSel _foCtrl;
     if (_selIdx < 0) exitWith {
         ["FO Roles", "Select a player from the right list first."] call A3A_fnc_customHint;
     };

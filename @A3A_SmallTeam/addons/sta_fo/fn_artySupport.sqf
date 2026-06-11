@@ -6,8 +6,6 @@
 //   3. End: remoteExecs post-fire monitor to server for each battery that fired
 // Everything else is verbatim from the Antistasi original.
 #include "script_component.hpp"
-FIX_LINE_NUMBERS()
-
 // ── STA: Role gate ────────────────────────────────────────────────────────────
 private _isBoss = player isEqualTo theBoss;
 private _isFO   = (getPlayerUID player) in STA_foPlayers;

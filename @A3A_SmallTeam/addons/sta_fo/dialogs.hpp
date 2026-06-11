@@ -4,8 +4,8 @@ class RscButtonMenu;
 
 class STA_batteryDialog {
     idd = 57001;
-    movingEnable = false;
-    enableSimulation = true;
+    movingEnable = 0;
+    enableSimulation = 1;
     class Controls {
         class Title: RscTitle {
             idc = 57100;
@@ -41,8 +41,8 @@ class STA_batteryDialog {
 
 class STA_foDialog {
     idd = 57002;
-    movingEnable = false;
-    enableSimulation = true;
+    movingEnable = 0;
+    enableSimulation = 1;
     class Controls {
         class Title: RscTitle {
             idc = 57200;

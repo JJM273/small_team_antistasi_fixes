@@ -54,7 +54,7 @@ lbClear _listCtrl;
 (_display displayCtrl 57103) ctrlAddEventHandler ["ButtonClick", {
     disableSerialization;
     private _listCtrl = (findDisplay 57001) displayCtrl 57101;
-    private _selIdx = _listCtrl lbCurSel;
+    private _selIdx = lbCurSel _listCtrl;
     if (_selIdx < 0) exitWith {
         ["Battery Waypoints", "Select a battery from the list first."] call A3A_fnc_customHint;
     };
@@ -95,7 +95,7 @@ lbClear _listCtrl;
 (_display displayCtrl 57104) ctrlAddEventHandler ["ButtonClick", {
     disableSerialization;
     private _listCtrl = (findDisplay 57001) displayCtrl 57101;
-    private _selIdx = _listCtrl lbCurSel;
+    private _selIdx = lbCurSel _listCtrl;
     if (_selIdx < 0) exitWith {
         ["Battery Remove", "Select a battery from the list first."] call A3A_fnc_customHint;
     };
