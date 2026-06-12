@@ -1,0 +1,2 @@
+# Non-standard prefix path — CfgFunctions paths depend on \sta_arty_move\ as root.
+ignore_pboprefix = true
