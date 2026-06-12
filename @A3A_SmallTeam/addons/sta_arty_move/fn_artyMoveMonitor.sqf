@@ -1,25 +1,25 @@
 #include "script_component.hpp"
 /*
  * STA_fnc_artyMoveMonitor
- * Run from debug console with cursor pointing at the target artillery vehicle:
  *
- *   [] call STA_fnc_artyMoveMonitor;          // 15s default cooldown
- *   [30] call STA_fnc_artyMoveMonitor;         // custom 30s cooldown
+ * From Zeus execute field (double-click unit → Execute box), Local Exec:
+ *   [vehicle this] call STA_fnc_artyMoveMonitor;
+ *   [vehicle this, 30] call STA_fnc_artyMoveMonitor;  // custom 30s cooldown
+ *
+ * From debug console (Local Exec), cursor on vehicle:
+ *   [] call STA_fnc_artyMoveMonitor;
  *
  * To stop monitoring a vehicle early:
- *   cursorObject setVariable ["STA_artyMove_active", false, true];
+ *   _yourVehicle setVariable ["STA_artyMove_active", false, true];
  *
- * The vehicle's HC group must already have its waypoint chain set in Zeus
+ * The HC group must already have its waypoint chain set in Zeus
  * (HOLD waypoints + a CYCLE at the end) before calling this.
- *
- * NOTE: For dedicated servers, run from the server debug console.
- * For hosted games, Zeus player IS the server — run from anywhere.
  */
 
-params [["_cooldown", 15, [0]]];
+params [["_veh", objNull, [objNull]], ["_cooldown", 15, [0]]];
 
-private _veh = cursorObject;
-if (isNull _veh) exitWith { hint "STA: No object under cursor."; };
+if (isNull _veh) then { _veh = cursorObject; };
+if (isNull _veh) exitWith { hint "STA: Pass the vehicle as the first argument, or point cursor at it."; };
 if !(alive _veh) exitWith { hint "STA: Object is dead."; };
 
 private _drv = driver _veh;
