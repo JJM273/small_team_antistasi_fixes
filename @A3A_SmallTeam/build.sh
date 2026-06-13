@@ -7,5 +7,4 @@ cd "$SCRIPT_DIR"
 
 hemtt build
 
-mkdir -p addons
 cp .hemttout/build/addons/*.pbo addons/
