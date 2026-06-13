@@ -5,6 +5,6 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-"${HEMTT:-hemtt}" build
+"${HEMTT:-$HOME/.local/bin/hemtt}" build
 
 cp .hemttout/build/addons/*.pbo addons/
