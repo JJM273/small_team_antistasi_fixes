@@ -1,3 +1,0 @@
-# Our $PBOPREFIX$ is the simple virtual path "sta_fo" (not the z\prefix\addons\name format).
-# This is intentional — CfgFunctions paths depend on \sta_fo\ as the root.
-ignore_pboprefix = true
