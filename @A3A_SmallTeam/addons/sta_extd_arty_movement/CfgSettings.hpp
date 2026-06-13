@@ -67,5 +67,16 @@ class CfgSettings {
             category = "A3A Small Team";
         };
 
+        class STA_extdArty_debugLevel {
+            value = 0;
+            typeName = "SCALAR";
+            isClient = 0;
+            isServer = 1;
+            force = 0;
+            displayName = "Debug level";
+            description = "0 = None. 1 = Units (repositioning / ready). 2 = All (scan, cooldown reset, HOLD check).";
+            category = "A3A Small Team";
+        };
+
     };
 };

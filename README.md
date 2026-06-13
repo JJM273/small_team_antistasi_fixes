@@ -11,8 +11,75 @@ A client/server mod for **Antistasi Ultimate** that makes artillery and the Forw
 ### Forward Observer (FO) role
 The commander can designate any player as a Forward Observer. FOs get full access to the artillery fire mission interface — the same interface the commander uses — without needing to be the boss. This lets one player command while another handles fire support.
 
-### Post-fire battery movement
-After an artillery battery fires, it automatically moves to its next pre-set firing position after a configurable delay. This simulates counter-battery survivability without needing a dedicated driver. The battery cycles through all its waypoints in order, wrapping back to the start.
+### Post-fire artillery displacement (`sta_extd_arty_movement`)
+Artillery vehicles automatically advance to their next Zeus waypoint after completing a fire mission. The mod detects eligible artillery groups on a configurable timer, calculates cooldown from the vehicle's actual reload time, and advances the group's HOLD waypoint once the gun has gone quiet long enough. Compatible with Antistasi's mortyAI (infantry mortar crews that despawn/respawn the mortar at each position).
+
+### Manual Zeus control (`sta_arty_move`)
+A lighter script for one-off situations. Double-click any artillery vehicle in Zeus → Execute box → run the call below. The vehicle advances its waypoint chain after each salvo using a fixed cooldown you specify.
+
+---
+
+## Post-fire displacement: setup
+
+### Auto mode (`sta_extd_arty_movement`)
+
+**Server setup** (done once per session — the addon handles the rest):
+
+1. In Zeus, give each artillery group a waypoint chain:
+   - Place **HOLD** waypoints at each desired firing position
+   - Place a **CYCLE** waypoint at the end to loop back
+2. The addon detects eligible artillery groups automatically on the periodic scan interval (default: every 30 s)
+3. After firing, the group waits for cooldown (derived from reload time × multiplier), then advances to the next waypoint
+
+Eligibility: any group on the player side with a vehicle that has `artilleryScanner = 1` in config. Override with the included/excluded class settings.
+
+**To force-monitor a specific vehicle** (skips eligibility check — useful for non-standard vehicles or immediate effect before the next scan):
+
+Open Zeus → double-click the vehicle → Execute box (Local Exec):
+```sqf
+[vehicle this] call STA_fnc_extdArtyAddGroupMonitor;
+```
+
+---
+
+### Manual mode (`sta_arty_move`)
+
+In Zeus → double-click the vehicle → Execute box (Local Exec):
+```sqf
+// Default 15 s cooldown:
+[vehicle this] call STA_fnc_artyMoveMonitor;
+
+// Custom cooldown (seconds):
+[vehicle this, 30] call STA_fnc_artyMoveMonitor;
+```
+
+Requires: the vehicle's group has at least one waypoint already set in Zeus, and the vehicle has a driver.
+
+To stop monitoring early:
+```sqf
+_yourVehicle setVariable ["STA_artyMove_active", false, true];
+```
+
+---
+
+## Forward Observer role: setup
+
+### Assign FO roles
+
+1. Open the **Commander Menu** (default: Tab)
+2. Go to the **ARTILLERY** tab
+3. Click **Manage FO Roles**
+4. Select a player from the left list and click **Grant FO →**
+5. To remove: select from the right list and click **← Revoke FO**
+
+FO role persists for the session.
+
+### Artillery tab buttons
+
+| Button | Who | What it does |
+|---|---|---|
+| Manage Artillery | Commander | Register/remove artillery vehicles from the fire mission pool |
+| Manage FO Roles | Commander | Grant or revoke FO designation for players |
 
 ---
 
@@ -22,63 +89,7 @@ After an artillery battery fires, it automatically moves to its next pre-set fir
 |---|---|---|
 | Open artillery interface | **Ctrl + Shift + A** | Commander, any FO |
 
-The keybind can be rebound in **Options → Controls → Configure Addons → A3A Small Team**.
-
----
-
-## Commander setup
-
-### 1. Commit artillery batteries
-
-Before batteries can be used for fire missions you need to register them.
-
-1. Open the **Commander Menu** (default: Tab)
-2. Click **Manage Artillery**
-3. Click **Commit New**
-4. The map opens — click the map position of an artillery vehicle you own
-5. The nearest uncommitted artillery vehicle within 50m of your click is added to the pool
-6. Repeat for each battery
-
-The list shows each committed battery's vehicle type and map grid position.
-
-### 2. Set firing waypoints (post-fire movement)
-
-For each battery you want to automatically displace after firing:
-
-1. Open **Manage Artillery**, select the battery from the list
-2. Click **Set Waypoints**
-3. The map opens — click up to **5 firing positions** in the order you want the battery to cycle through
-4. Close the map when done
-
-After each fire mission the battery waits for the configured delay, then moves to the next position in the cycle. If no waypoints are set the battery stays put.
-
-To update waypoints, select the battery and click **Set Waypoints** again — this replaces the existing waypoints.
-
-### 3. Assign FO roles
-
-1. Open the **Commander Menu** (Tab)
-2. Click **Manage FO Roles**
-3. The left list shows all connected players (excluding yourself)
-4. Select a player and click **Grant FO →** to give them the FO role
-5. To remove the role, select the player in the right list and click **← Revoke FO**
-
-FO role persists for the session. Players who disconnect and reconnect retain the role.
-
-### 4. Remove a battery
-
-In **Manage Artillery**, select the battery and click **Remove Battery** to deregister it from the pool (e.g. if it was destroyed or you want to swap it out).
-
----
-
-## Forward Observer usage
-
-Once granted the FO role:
-
-1. Press **Ctrl + Shift + A** to open the artillery fire mission interface (same as the commander's interface)
-2. Select a battery and target — all committed batteries are available
-3. The battery fires, then automatically displaces to its next waypoint after the post-fire delay
-
-FOs use the same `STA_batteryPool` as the commander. There is no separate FO battery list — the commander controls which batteries are in the pool.
+Rebind in **Options → Controls → Configure Addons → A3A Small Team**.
 
 ---
 
@@ -86,14 +97,26 @@ FOs use the same `STA_batteryPool` as the commander. There is no separate FO bat
 
 Found under **Options → Addon Options → A3A Small Team**:
 
+### `sta_extd_arty_movement` (server-side)
+
 | Setting | Default | Description |
 |---|---|---|
-| Require radio for FO | On | FO must carry a radio to open the artillery interface (mirrors the boss radio requirement) |
-| FOs can set waypoints | Off | Allows FOs to configure battery firing positions via the waypoint tool (commander can always do this) |
-| Post-fire move delay (s) | 5 | Seconds after the last round fires before the battery moves to its next position (0–120) |
+| Auto arty movement | On | Automatically attach post-fire waypoint advancement to eligible artillery groups |
+| Scan interval (s) | 30 | How often to search for new eligible groups |
+| Included vehicle classes | *(empty)* | Comma-separated classnames to force-include (overrides the `artilleryScanner` check) |
+| Excluded vehicle classes | *(empty)* | Comma-separated classnames to exclude from auto-detection |
+| Cooldown multiplier | 1.5 | Detected reload time is multiplied by this; result is the post-fire wait before advancing |
+| Minimum cooldown (s) | 10 | Floor cooldown regardless of calculated value |
+| Debug level | 0 | 0 = off. 1 = chat when groups reposition/arrive. 2 = verbose (scan, cooldown resets, HOLD checks) |
 
 ---
 
 ## Installation
 
-Copy `STA_sta_fo.pbo` (from `.hemttout/build/addons/`) into your `@A3A_SmallTeam\addons\` folder and load `@A3A_SmallTeam` as an Arma 3 mod alongside Antistasi Ultimate. Load on both server and all clients.
+Copy all `.pbo` files from `@A3A_SmallTeam/addons/` into your server's `@A3A_SmallTeam/addons/` folder. Load `@A3A_SmallTeam` as an Arma 3 mod on **both server and all clients**.
+
+Build PBOs with [HEMTT](https://github.com/BrettMayson/HEMTT) from the `@A3A_SmallTeam/` directory:
+```
+cd @A3A_SmallTeam
+hemtt build
+```

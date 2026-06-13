@@ -33,6 +33,10 @@ private _fn_isEligibleVehicle = {
     getNumber (configOf _veh >> "artilleryScanner") == 1
 };
 
+if (STA_extdArty_debugLevel >= 2) then {
+    ["STA arty: periodic scan running."] remoteExec ["systemChat", 0];
+};
+
 {
     private _grp = _x;
 

@@ -58,7 +58,10 @@ _grp setVariable ["STA_extdArty_monitored",  true];
 
 diag_log format ["STA extdArty: monitoring %1 (group %2, cooldown %3s).", typeOf _veh, groupId _grp, _cooldown];
 if (_manual) then {
-    hint format ["STA: Monitoring %1.\n%2s cooldown after last shot.", typeOf _veh, _cooldown];
+    systemChat format ["STA: Monitoring %1. %2s cooldown after last shot.", typeOf _veh, _cooldown];
+};
+if (STA_extdArty_debugLevel >= 2) then {
+    [format ["STA arty [%1]: monitoring %2 (cooldown %3s).", groupId _grp, typeOf _veh, _cooldown]] remoteExec ["systemChat", 0];
 };
 
 // --- Per-group advance loop ---
