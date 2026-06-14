@@ -10,7 +10,7 @@ class CfgPatches {
 // ── Re-slot CUP standalone grenade launchers ──────────────────────────────────
 //
 // Arma 3 weapon type values:
-//   0 = Primary   1 = Handgun/Secondary   2 = Launcher/Tertiary
+//   1 = Primary   2 = Handgun/Secondary   3 = Launcher/Tertiary
 //
 // CUP ships all of these as primaries (type = 0). This patch moves:
 //   Mk13      → Secondary (pistol slot) — grenade pistol, pairs with a sidearm
@@ -18,18 +18,18 @@ class CfgPatches {
 
 class CfgWeapons {
     class CUP_glaunch_Mk13 {
-        type = 1;
+        type = 2;
     };
 
     class CUP_glaunch_M32 {
-        type = 2;
+        type = 3;
     };
 
     class CUP_glaunch_M79 {
-        type = 2;
+        type = 3;
     };
 
     class CUP_glaunch_6G30 {
-        type = 2;
+        type = 3;
     };
 };
