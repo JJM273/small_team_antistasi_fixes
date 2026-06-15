@@ -23,12 +23,16 @@ class CfgAmmo {
     class G_40mm_SmokeGreen;
     class G_40mm_SmokeYellow;
     class G_40mm_SmokeBlue;
+    class G_40mm_SmokePurple;
+    class G_40mm_SmokeOrange;
 
     class STA_26mm_Smoke: G_40mm_Smoke              { timeToLive = 24; };
     class STA_26mm_SmokeRed: G_40mm_SmokeRed        { timeToLive = 24; };
     class STA_26mm_SmokeGreen: G_40mm_SmokeGreen    { timeToLive = 24; };
     class STA_26mm_SmokeYellow: G_40mm_SmokeYellow  { timeToLive = 24; };
     class STA_26mm_SmokeBlue: G_40mm_SmokeBlue      { timeToLive = 24; };
+    class STA_26mm_SmokePurple: G_40mm_SmokePurple  { timeToLive = 24; };
+    class STA_26mm_SmokeOrange: G_40mm_SmokeOrange  { timeToLive = 24; };
 };
 
 // ── Magazines ─────────────────────────────────────────────────────────────────
@@ -74,6 +78,20 @@ class CfgMagazines {
         descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
         ammo = "STA_26mm_SmokeBlue";
     };
+
+    class STA_26mm_SmokePurple_Mag: CUP_FlareWhite_265_M {
+        displayName = "26.5mm Smoke (Purple)";
+        displayNameShort = "Smoke Purple";
+        descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
+        ammo = "STA_26mm_SmokePurple";
+    };
+
+    class STA_26mm_SmokeOrange_Mag: CUP_FlareWhite_265_M {
+        displayName = "26.5mm Smoke (Orange)";
+        displayNameShort = "Smoke Orange";
+        descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
+        ammo = "STA_26mm_SmokeOrange";
+    };
 };
 
 // ── Bind magazines to the CUP flare gun ───────────────────────────────────────
@@ -90,7 +108,9 @@ class CfgWeapons {
             "STA_26mm_SmokeRed_Mag",
             "STA_26mm_SmokeGreen_Mag",
             "STA_26mm_SmokeYellow_Mag",
-            "STA_26mm_SmokeBlue_Mag"
+            "STA_26mm_SmokeBlue_Mag",
+            "STA_26mm_SmokePurple_Mag",
+            "STA_26mm_SmokeOrange_Mag"
         };
     };
 };
