@@ -3,20 +3,19 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = 1.68;
-        // CUP Weapons must be loaded, but we don't hard-require it so the
-        // PBO loads cleanly on servers without CUP; the patch is simply a no-op.
-        requiredAddons[] = {"cba_main"};
+        // CUP_Weapons_Flaregun required so we load AFTER CUP defines the
+        // flare gun and its magazines — otherwise CUP's later magazines[] = {...}
+        // definition overwrites our magazines[] += {...} addition.
+        requiredAddons[] = {"cba_main", "CUP_Weapons_Flaregun"};
     };
 };
 
 // ── Ammo ──────────────────────────────────────────────────────────────────────
 //
-// Each color inherits from its matching 40mm parent. This means the
-// "Slightly Bounce 40mm Smoke" mod's patches to those parents cascade here
-// automatically (Arma resolves inheritance after all patches are merged).
-// timeToLive = 24 is 80% of the vanilla ~30 s default.
-// Visual cloud size (60% target) is in CfgCloudlets via effectsSmoke —
-// left as inherited; needs in-game comparison and tuning.
+// Inherits G_40mm_Smoke (vanilla 40mm UGL smoke). The "Slightly Bounce 40mm
+// Smoke" mod patches G_40mm_Smoke directly, so when loaded its bounce behavior
+// cascades to our children via inheritance resolution.
+// timeToLive = 24 is 80% of the ~30 s vanilla default.
 
 class CfgAmmo {
     class G_40mm_Smoke;
@@ -25,68 +24,67 @@ class CfgAmmo {
     class G_40mm_SmokeYellow;
     class G_40mm_SmokeBlue;
 
-    class STA_26mm_Smoke: G_40mm_Smoke         { timeToLive = 24; };
-    class STA_26mm_SmokeRed: G_40mm_SmokeRed   { timeToLive = 24; };
-    class STA_26mm_SmokeGreen: G_40mm_SmokeGreen { timeToLive = 24; };
-    class STA_26mm_SmokeYellow: G_40mm_SmokeYellow { timeToLive = 24; };
-    class STA_26mm_SmokeBlue: G_40mm_SmokeBlue { timeToLive = 24; };
+    class STA_26mm_Smoke: G_40mm_Smoke              { timeToLive = 24; };
+    class STA_26mm_SmokeRed: G_40mm_SmokeRed        { timeToLive = 24; };
+    class STA_26mm_SmokeGreen: G_40mm_SmokeGreen    { timeToLive = 24; };
+    class STA_26mm_SmokeYellow: G_40mm_SmokeYellow  { timeToLive = 24; };
+    class STA_26mm_SmokeBlue: G_40mm_SmokeBlue      { timeToLive = 24; };
 };
 
 // ── Magazines ─────────────────────────────────────────────────────────────────
+//
+// Inherit from CUP_FlareWhite_265_M so we automatically get the right pistol
+// magazine setup (type=16, initSpeed=160, mass=4, nameSound="grenadelauncher",
+// count=1). We only override displayName, descriptionShort, and ammo.
 
 class CfgMagazines {
-    class CA_Magazine;
+    class CUP_FlareWhite_265_M;
 
-    class STA_26mm_Smoke_Mag: CA_Magazine {
-        scope = 2;
-        displayName = "26.5mm Smoke Round (White)";
-        displayNameShort = "26.5mm Smoke";
+    class STA_26mm_Smoke_Mag: CUP_FlareWhite_265_M {
+        displayName = "26.5mm Smoke (White)";
+        displayNameShort = "Smoke White";
+        descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
         ammo = "STA_26mm_Smoke";
-        count = 1;
-        mass = 6;
     };
 
-    class STA_26mm_SmokeRed_Mag: CA_Magazine {
-        scope = 2;
-        displayName = "26.5mm Smoke Round (Red)";
-        displayNameShort = "26.5mm Smoke (Red)";
+    class STA_26mm_SmokeRed_Mag: CUP_FlareWhite_265_M {
+        displayName = "26.5mm Smoke (Red)";
+        displayNameShort = "Smoke Red";
+        descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
         ammo = "STA_26mm_SmokeRed";
-        count = 1;
-        mass = 6;
     };
 
-    class STA_26mm_SmokeGreen_Mag: CA_Magazine {
-        scope = 2;
-        displayName = "26.5mm Smoke Round (Green)";
-        displayNameShort = "26.5mm Smoke (Green)";
+    class STA_26mm_SmokeGreen_Mag: CUP_FlareWhite_265_M {
+        displayName = "26.5mm Smoke (Green)";
+        displayNameShort = "Smoke Green";
+        descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
         ammo = "STA_26mm_SmokeGreen";
-        count = 1;
-        mass = 6;
     };
 
-    class STA_26mm_SmokeYellow_Mag: CA_Magazine {
-        scope = 2;
-        displayName = "26.5mm Smoke Round (Yellow)";
-        displayNameShort = "26.5mm Smoke (Yellow)";
+    class STA_26mm_SmokeYellow_Mag: CUP_FlareWhite_265_M {
+        displayName = "26.5mm Smoke (Yellow)";
+        displayNameShort = "Smoke Yellow";
+        descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
         ammo = "STA_26mm_SmokeYellow";
-        count = 1;
-        mass = 6;
     };
 
-    class STA_26mm_SmokeBlue_Mag: CA_Magazine {
-        scope = 2;
-        displayName = "26.5mm Smoke Round (Blue)";
-        displayNameShort = "26.5mm Smoke (Blue)";
+    class STA_26mm_SmokeBlue_Mag: CUP_FlareWhite_265_M {
+        displayName = "26.5mm Smoke (Blue)";
+        displayNameShort = "Smoke Blue";
+        descriptionShort = "Type: Smoke<br/>Rounds: 1<br/>Used in: Flare Pistol";
         ammo = "STA_26mm_SmokeBlue";
-        count = 1;
-        mass = 6;
     };
 };
 
-// ── Add all magazines to CUP flare gun ────────────────────────────────────────
+// ── Bind magazines to the CUP flare gun ───────────────────────────────────────
+//
+// Explicit Pistol_Base_F parent declaration is required for magazines[] +=
+// to extend the parent class's array. Without it, the patch silently no-ops.
 
 class CfgWeapons {
-    class CUP_hgun_FlareGun {
+    class Pistol_Base_F;
+
+    class CUP_hgun_FlareGun: Pistol_Base_F {
         magazines[] += {
             "STA_26mm_Smoke_Mag",
             "STA_26mm_SmokeRed_Mag",
