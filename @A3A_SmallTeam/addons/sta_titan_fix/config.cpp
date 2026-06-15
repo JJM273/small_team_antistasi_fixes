@@ -3,25 +3,30 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = 1.68;
-        requiredAddons[] = {"cba_main"};
+        // ace_overpressure required so our overrides apply after ACE sets the
+        // base-class defaults — otherwise ACE's later value wins the merge.
+        requiredAddons[] = {"cba_main", "ace_overpressure"};
     };
 };
 
-// ── Remove ACE backblast from soft-launch Titan launchers ─────────────────────
+// ── Remove ACE overpressure damage from soft-launch Titan launchers ───────────
 //
 // Both Titan variants are Confined Spaces rated in vanilla, but ACE's overpressure
-// system still applies damage — particularly dangerous on slopes where backblast
-// travels downward into the firer. ACE_Overpressure = 0 disables that system
-// for these two launchers. Harmless if ACE is not loaded.
+// system still applies damage — particularly dangerous on slopes where the
+// backblast travels downhill into the firer. ACE sets damage = 0.5 on the
+// launch_Titan_base/short_base classes (see ace_overpressure/CfgWeapons).
+// Setting ace_overpressure_damage = 0 on the user-facing launchers overrides
+// the inherited value to zero.
 
 class CfgWeapons {
-    class Launcher_Base_F;
+    class launch_Titan_base;
+    class launch_Titan_short_base;
 
-    class launch_Titan_F: Launcher_Base_F {
-        ACE_Overpressure = 0;
+    class launch_Titan_F: launch_Titan_base {
+        ace_overpressure_damage = 0;
     };
 
-    class launch_Titan_short_F: Launcher_Base_F {
-        ACE_Overpressure = 0;
+    class launch_Titan_short_F: launch_Titan_short_base {
+        ace_overpressure_damage = 0;
     };
 };
