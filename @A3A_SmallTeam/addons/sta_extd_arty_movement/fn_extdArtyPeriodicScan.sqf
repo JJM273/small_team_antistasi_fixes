@@ -2,6 +2,16 @@
 // Scans all server-side groups for eligible artillery vehicles and starts monitoring.
 // Runs on a loop at the configured interval. Called from fn_extdArtyInitServer.
 
+// Resolve the monitored side once per scan.
+// 0=BLUFOR, 1=OPFOR, 2=Independent, 3=All sides (sentinel: skip side check).
+private _monitorSide = switch (STA_extdArty_monitorSide) do {
+    case 0: { west };
+    case 1: { east };
+    case 2: { independent };
+    case 3: { sideUnknown };
+    default { west };
+};
+
 private _includedRaw = STA_extdArty_includedClasses;
 private _excludedRaw = STA_extdArty_excludedClasses;
 
@@ -43,8 +53,8 @@ if (STA_extdArty_debugLevel >= 2) then {
     // Skip already-monitored groups.
     if (_grp getVariable ["STA_extdArty_monitored", false]) then { continue };
 
-    // Only player-side groups.
-    if (side _grp != teamPlayer) then { continue };
+    // Side filter (skipped when setting is "All sides").
+    if (_monitorSide isNotEqualTo sideUnknown && {side _grp != _monitorSide}) then { continue };
 
     // Find the first eligible vehicle in the group.
     private _eligibleVeh = objNull;

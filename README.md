@@ -107,6 +107,7 @@ Found under **Options → Addon Options → A3A Small Team**:
 | Excluded vehicle classes | *(empty)* | Comma-separated classnames to exclude from auto-detection |
 | Cooldown multiplier | 1.5 | Detected reload time is multiplied by this; result is the post-fire wait before advancing |
 | Minimum cooldown (s) | 10 | Floor cooldown regardless of calculated value |
+| Monitor side | BLUFOR | Which side's artillery to auto-monitor. BLUFOR / OPFOR / Independent / All sides |
 | Debug level | 0 | 0 = off. 1 = chat when groups reposition/arrive. 2 = verbose (scan, cooldown resets, HOLD checks) |
 
 ---

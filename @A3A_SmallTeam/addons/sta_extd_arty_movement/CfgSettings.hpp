@@ -67,6 +67,18 @@ class CfgSettings {
             category = "A3A Small Team";
         };
 
+        class STA_extdArty_monitorSide {
+            value = 0;
+            typeName = "SCALAR";
+            isClient = 0;
+            isServer = 1;
+            force = 0;
+            displayName = "Monitor side";
+            description = "Which side's artillery groups to auto-monitor. 0=BLUFOR (default), 1=OPFOR, 2=Independent, 3=All sides.";
+            values[] = {"BLUFOR", "OPFOR", "Independent", "All sides"};
+            category = "A3A Small Team";
+        };
+
         class STA_extdArty_debugLevel {
             value = 0;
             typeName = "SCALAR";
