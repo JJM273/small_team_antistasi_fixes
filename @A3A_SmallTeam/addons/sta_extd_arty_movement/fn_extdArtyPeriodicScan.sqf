@@ -4,7 +4,10 @@
 
 // Resolve the monitored side once per scan.
 // 0=BLUFOR, 1=OPFOR, 2=Independent, 3=All sides (sentinel: skip side check).
-private _monitorSide = switch (STA_extdArty_monitorSide) do {
+// Read via missionNamespace getVariable so we don't crash if CBA hasn't
+// finished registering the setting yet (postInit race).
+private _sideIdx = missionNamespace getVariable ["STA_extdArty_monitorSide", 0];
+private _monitorSide = switch (_sideIdx) do {
     case 0: { west };
     case 1: { east };
     case 2: { independent };
