@@ -38,11 +38,13 @@ class CfgWeapons {
         type = 2;
     };
 
+    // ── DIAGNOSTIC TEST (temporary) ──────────────────────────────────────────
+    // M32 has the WeaponSlotsInfo/holsterScale override REMOVED to isolate it as
+    // the cause of "can't switch / no mags". M79 + 6G30 keep their overrides as
+    // the broken comparison. Expected: M32 becomes switchable w/ mags (holster
+    // model visible again); M79 stays broken. Revert after testing.
     class CUP_glaunch_M32: CUP_glaunch_Base {
         type = 2;
-        class WeaponSlotsInfo: WeaponSlotsInfo {
-            holsterScale = 0;
-        };
     };
 
     class CUP_glaunch_M79: CUP_glaunch_Base {
