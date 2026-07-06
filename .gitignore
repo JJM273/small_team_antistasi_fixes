@@ -1,1 +1,5 @@
 @A3A_SmallTeam/.hemttout/
+
+# Local reference material: extracted/unpacked third-party mod files (CUP, ACE)
+# used for looking up configs. Not part of the addon source.
+reference/
